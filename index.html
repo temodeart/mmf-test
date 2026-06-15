@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Money Market Fund — Mobile App (Test)</title>
+<meta name="description" content="MMF / Мони Маркет Фанд ХХК — interactive mobile-app prototype for testing."/>
+<link rel="icon" href="assets/logo-mark.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="app.css"/>
+<style>
+  :root{
+    --bg:#F4F6FA; --ink:#0B1020; --muted:#6B7191; --line:#E7E9F2;
+    --indigo:#4F46E5; --indigo-soft:#EEF0FE; --navy:#050B1F; --orange:#FF6B2C;
+    --chrome:#0E1428;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    font-family:'Manrope',system-ui,sans-serif;
+    background:
+      radial-gradient(900px 600px at 12% -10%, rgba(79,70,229,.10), transparent 60%),
+      radial-gradient(900px 600px at 100% 110%, rgba(255,107,44,.08), transparent 55%),
+      #0B1020;
+    color:#fff; min-height:100%;
+    -webkit-font-smoothing:antialiased;
+  }
+  #app{display:flex;min-height:100vh;flex-direction:column}
+  /* top chrome */
+  header.bar{
+    display:flex;align-items:center;gap:14px;padding:12px 18px;
+    background:rgba(8,12,28,.72);backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:40;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.01em;font-size:15px;white-space:nowrap}
+  .brand img{height:26px;width:26px;border-radius:7px;background:#fff;padding:3px}
+  .brand small{display:block;font-weight:600;font-size:10px;color:#9099B5;letter-spacing:.12em;text-transform:uppercase}
+  .spacer{flex:1}
+  .nav-btns{display:flex;gap:8px;align-items:center}
+  button.cbtn{
+    font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;
+    border-radius:10px;border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.06);color:#fff;padding:9px 13px;display:inline-flex;align-items:center;gap:6px;
+    transition:background .15s,border-color .15s;white-space:nowrap;
+  }
+  button.cbtn:hover{background:rgba(255,255,255,.13)}
+  button.cbtn.primary{background:var(--indigo);border-color:var(--indigo);box-shadow:0 8px 22px -10px rgba(79,70,229,.8)}
+  button.cbtn:disabled{opacity:.4;cursor:not-allowed}
+  .screen-tag{font-family:'JetBrains Mono',monospace;font-size:12px;color:#aeb6d6;letter-spacing:.04em;
+    max-width:30vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  /* stage */
+  main.stage{flex:1;display:flex;align-items:center;justify-content:center;padding:26px 18px 36px;overflow:hidden}
+  #scaler{transform-origin:top center}
+  #frame-host{width:390px}
+  .mmf-screen{width:390px}
+  /* menu drawer */
+  #menu{
+    position:fixed;inset:0;z-index:60;display:none;
+  }
+  #menu.open{display:block}
+  #menu .scrim{position:absolute;inset:0;background:rgba(3,6,18,.6)}
+  #menu .panel{
+    position:absolute;top:0;right:0;height:100%;width:340px;max-width:88vw;
+    background:#0E1428;border-left:1px solid rgba(255,255,255,.08);
+    display:flex;flex-direction:column;box-shadow:-20px 0 60px -20px rgba(0,0,0,.6)
+  }
+  #menu .phead{display:flex;align-items:center;gap:10px;padding:16px 16px 10px;border-bottom:1px solid rgba(255,255,255,.08)}
+  #menu input{
+    flex:1;font-family:inherit;font-size:13px;color:#fff;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:9px 11px;outline:none;
+  }
+  #menu input::placeholder{color:#7e85a8}
+  #menu .list{overflow:auto;padding:8px 10px 28px;flex:1}
+  #menu .grp{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7e85a8;font-weight:700;margin:14px 8px 6px}
+  #menu .item{
+    display:flex;align-items:center;gap:9px;width:100%;text-align:left;
+    padding:9px 10px;border-radius:9px;border:none;background:transparent;color:#d9def0;
+    font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer
+  }
+  #menu .item:hover{background:rgba(255,255,255,.07)}
+  #menu .item.active{background:var(--indigo-soft);color:var(--navy)}
+  #menu .item .idx{font-family:'JetBrains Mono',monospace;font-size:10px;color:#7e85a8;min-width:22px}
+  #menu .item.active .idx{color:var(--indigo)}
+  .hint{position:fixed;bottom:10px;left:0;right:0;text-align:center;color:#6b7191;font-size:11px;pointer-events:none}
+  @media (max-width:520px){
+    .brand small{display:none}
+    .screen-tag{max-width:24vw}
+    .lbl-hide{display:none}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="bar">
+    <div class="brand">
+      <img src="assets/logo-mark.svg" alt="MMF"/>
+      <span>Money Market Fund<small>Mobile App · Test build</small></span>
+    </div>
+    <div class="spacer"></div>
+    <div class="nav-btns">
+      <button class="cbtn" id="btn-back" title="Буцах (browser back)">← <span class="lbl-hide">Back</span></button>
+      <button class="cbtn" id="btn-home" title="Нүүр">⌂ <span class="lbl-hide">Home</span></button>
+      <button class="cbtn primary" id="btn-next" title="Дараах (flow)">Next <span class="lbl-hide">→</span></button>
+      <span class="screen-tag" id="tag">—</span>
+      <button class="cbtn" id="btn-menu">☰ <span class="lbl-hide">Screens</span></button>
+    </div>
+  </header>
+  <main class="stage">
+    <div id="scaler"><div id="frame-host"></div></div>
+  </main>
+  <div class="hint">Tap inside the phone to navigate · use Screens (☰) to jump to any of the 99 screens · every screen has its own URL</div>
+</div>
+
+<!-- menu drawer -->
+<div id="menu">
+  <div class="scrim" data-close></div>
+  <div class="panel">
+    <div class="phead">
+      <input id="menu-search" placeholder="Хайх / Search screens…" autocomplete="off"/>
+      <button class="cbtn" data-close>✕</button>
+    </div>
+    <div class="list" id="menu-list"></div>
+  </div>
+</div>
+
+<!-- React + screen bundle -->
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="screens.js"></script>
+<script>
+(function(){
+  var S = window.__MMF_SCREENS || {};
+
+  /* Canonical screen order (from export manifest) + section grouping */
+  var ORDER = ["Splash","Login","ResetEnterPhone","ResetVerifyCode","ResetNewPassword","ResetSuccess","Onb1","Onb2","Onb3","Onb4","PhoneVerify","EmailVerify","CreatePassword","CreatePin","BiometricSetup","KycConsent","MonpepCheck","MonpepFailed","TermsOfUse","MasterContract","SigningMethod","ESignCanvas","ESignSuccess","GSignRequest","GSignWaiting","GSignSuccess","GSignTutorial","BankVerify","IbanLookupSheet","IbanLookupResult","DepositSending","DepositInfo","CodeEntry","BankVerified","KycComplete","Home","Trading","Category","PrimaryMarket","PrimaryDetail","PrimaryBuySetup","PrimaryBuyReview","PrimaryBuyPin","PrimaryBuySuccess","SecondaryDetail","SecondaryBuySetup","SecondaryBuyReview","SecondaryBuyPin","SecondaryBuySuccess","OwnedDetail","ContractViewer","SellSetup","SellReview","SellPin","SellSuccess","StateInsufficient","StateSoldOut","StateUnavailable","StatePriceChanged","StateOtpError","StateNetworkError","Wallet","TransactionHistory","AddMoneyAmount","AddMoneyQPay","AddMoneyBank","AddMoneyBankPending","AddMoneyBankSuccess","AddMoneyBankNotFound","AddMoneySuccess","WithdrawAmount","WithdrawReview","WithdrawPin","WithdrawSuccess","WithdrawInsufficient","News","NewsDetail","EduDetail","Loan","NotificationList","NotificationDetail","NotificationDetailCrit","ProfileMain","PersonalInfo","NotifSettings","MyContracts","CertRequest","CertSuccess","TermsScreen","LoanCheckEntry","LoanBlocked","QPayPayment","PayConfirmed","PayFailed","LoanAccepted","LoanPartial","LoanPinConfirm","LoanSubmitted","LoanDeclined"];
+
+  var GROUPS = [
+    ["Эхлэл ба нэвтрэх · Auth", ["Splash","Login","ResetEnterPhone","ResetVerifyCode","ResetNewPassword","ResetSuccess","Onb1","Onb2","Onb3","Onb4","PhoneVerify","EmailVerify","CreatePassword","CreatePin","BiometricSetup"]],
+    ["KYC ба гарын үсэг · Onboarding", ["KycConsent","MonpepCheck","MonpepFailed","TermsOfUse","MasterContract","SigningMethod","ESignCanvas","ESignSuccess","GSignRequest","GSignWaiting","GSignSuccess","GSignTutorial","BankVerify","IbanLookupSheet","IbanLookupResult","DepositSending","DepositInfo","CodeEntry","BankVerified","KycComplete"]],
+    ["Үндсэн дэлгэц · Main tabs", ["Home","Trading","Category","News","NewsDetail","EduDetail","Loan","Wallet","ProfileMain"]],
+    ["Худалдан авах / зарах · Trade", ["PrimaryMarket","PrimaryDetail","PrimaryBuySetup","PrimaryBuyReview","PrimaryBuyPin","PrimaryBuySuccess","SecondaryDetail","SecondaryBuySetup","SecondaryBuyReview","SecondaryBuyPin","SecondaryBuySuccess","OwnedDetail","ContractViewer","SellSetup","SellReview","SellPin","SellSuccess"]],
+    ["Хэтэвч · Wallet flows", ["TransactionHistory","AddMoneyAmount","AddMoneyQPay","AddMoneyBank","AddMoneyBankPending","AddMoneyBankSuccess","AddMoneyBankNotFound","AddMoneySuccess","WithdrawAmount","WithdrawReview","WithdrawPin","WithdrawSuccess","WithdrawInsufficient"]],
+    ["Зээл · Loan flows", ["LoanCheckEntry","LoanBlocked","LoanPinConfirm","LoanSubmitted","LoanAccepted","LoanPartial","LoanDeclined","QPayPayment","PayConfirmed","PayFailed"]],
+    ["Мэдэгдэл ба профайл · Profile", ["NotificationList","NotificationDetail","NotificationDetailCrit","PersonalInfo","NotifSettings","MyContracts","CertRequest","CertSuccess","TermsScreen"]],
+    ["Алдаа ба төлөв · States", ["StateInsufficient","StateSoldOut","StateUnavailable","StatePriceChanged","StateOtpError","StateNetworkError"]]
+  ];
+
+  /* onNav() targets used inside screens -> real screen names */
+  var ALIAS = {
+    home:"Home", trade:"Trading", trading:"Trading", wallet:"Wallet", news:"News",
+    loan:"Loan", profile:"ProfileMain", notifications:"NotificationList",
+    primaryMarket:"PrimaryMarket", primaryDetail:"PrimaryDetail",
+    newsDetail:"NewsDetail", eduDetail:"EduDetail", loanEntry:"LoanCheckEntry",
+    payoffConfirm:"QPayPayment", wdAmount:"WithdrawAmount", txHistory:"TransactionHistory",
+    ownedDetail:"OwnedDetail", addAmount:"AddMoneyAmount", profileContract:"MyContracts",
+    signup:"Onb1", login:"Login"
+  };
+
+  /* Primary forward CTA per screen (the "Next" flow) */
+  var NEXT = {
+    Onb1:"Onb2", Onb2:"Onb3", Onb3:"Onb4", Onb4:"PhoneVerify",
+    PhoneVerify:"EmailVerify", EmailVerify:"CreatePassword", CreatePassword:"CreatePin",
+    CreatePin:"BiometricSetup", BiometricSetup:"KycConsent", KycConsent:"MonpepCheck",
+    MonpepCheck:"TermsOfUse", MonpepFailed:"KycConsent",
+    TermsOfUse:"MasterContract", MasterContract:"SigningMethod",
+    SigningMethod:"ESignCanvas", ESignCanvas:"ESignSuccess", ESignSuccess:"BankVerify",
+    GSignRequest:"GSignWaiting", GSignWaiting:"GSignSuccess", GSignSuccess:"BankVerify", GSignTutorial:"GSignRequest",
+    BankVerify:"IbanLookupSheet", IbanLookupSheet:"IbanLookupResult", IbanLookupResult:"DepositSending",
+    DepositSending:"DepositInfo", DepositInfo:"CodeEntry", CodeEntry:"BankVerified",
+    BankVerified:"KycComplete", KycComplete:"Home",
+    Splash:"Onb1", Login:"Home",
+    ResetEnterPhone:"ResetVerifyCode", ResetVerifyCode:"ResetNewPassword",
+    ResetNewPassword:"ResetSuccess", ResetSuccess:"Login",
+    Home:"Trading", Trading:"PrimaryDetail", Category:"PrimaryDetail",
+    PrimaryMarket:"PrimaryDetail", PrimaryDetail:"PrimaryBuySetup",
+    PrimaryBuySetup:"PrimaryBuyReview", PrimaryBuyReview:"PrimaryBuyPin",
+    PrimaryBuyPin:"PrimaryBuySuccess", PrimaryBuySuccess:"Home",
+    SecondaryDetail:"SecondaryBuySetup", SecondaryBuySetup:"SecondaryBuyReview",
+    SecondaryBuyReview:"SecondaryBuyPin", SecondaryBuyPin:"SecondaryBuySuccess", SecondaryBuySuccess:"Home",
+    OwnedDetail:"SellSetup", ContractViewer:"OwnedDetail",
+    SellSetup:"SellReview", SellReview:"SellPin", SellPin:"SellSuccess", SellSuccess:"Home",
+    Wallet:"AddMoneyAmount", TransactionHistory:"Wallet",
+    AddMoneyAmount:"AddMoneyQPay", AddMoneyQPay:"AddMoneySuccess", AddMoneySuccess:"Wallet",
+    AddMoneyBank:"AddMoneyBankPending", AddMoneyBankPending:"AddMoneyBankSuccess",
+    AddMoneyBankSuccess:"Wallet", AddMoneyBankNotFound:"AddMoneyBank",
+    WithdrawAmount:"WithdrawReview", WithdrawReview:"WithdrawPin", WithdrawPin:"WithdrawSuccess",
+    WithdrawSuccess:"Wallet", WithdrawInsufficient:"WithdrawAmount",
+    News:"NewsDetail", NewsDetail:"EduDetail", EduDetail:"News",
+    Loan:"LoanCheckEntry", LoanCheckEntry:"LoanPinConfirm", LoanPinConfirm:"LoanSubmitted",
+    LoanSubmitted:"LoanAccepted", LoanAccepted:"Home", LoanPartial:"Home",
+    LoanDeclined:"Home", LoanBlocked:"Home",
+    QPayPayment:"PayConfirmed", PayConfirmed:"Loan", PayFailed:"QPayPayment",
+    NotificationList:"NotificationDetail", NotificationDetail:"NotificationList",
+    NotificationDetailCrit:"NotificationList",
+    ProfileMain:"PersonalInfo", PersonalInfo:"ProfileMain", NotifSettings:"ProfileMain",
+    MyContracts:"ContractViewer", CertRequest:"CertSuccess", CertSuccess:"ProfileMain", TermsScreen:"ProfileMain",
+    StateInsufficient:"Wallet", StateSoldOut:"PrimaryMarket", StateUnavailable:"Home",
+    StatePriceChanged:"PrimaryBuyReview", StateOtpError:"PhoneVerify", StateNetworkError:"Home"
+  };
+
+  /* Branch points keyed by exact (trimmed) button/label text */
+  var TEXT_NAV = {
+    Splash:   { "Бүртгүүлэх":"Onb1", "Нэвтрэх":"Login" },
+    Login:    { "Нэвтрэх":"Home", "Бүртгүүлэх":"Onb1", "Нууц үг мартсан?":"ResetEnterPhone" },
+    SigningMethod: { "G-Sign":"GSignRequest", "Цахим гарын үсэг":"ESignCanvas" },
+    OwnedDetail:   { "Хоёрдогч зах зээлд зарах":"SellSetup" }
+  };
+
+  var EXCLUDE_TEXT = ["Хаах","Цуцлах","Болих","Үгүй","Буцах","Хойшлуулах"];
+
+  /* ---------- routing ---------- */
+  var host = document.getElementById('frame-host');
+  var root = ReactDOM.createRoot(host);
+  var current = null;
+  var lastOnNav = 0;
+
+  function valid(name){ return name && S[name]; }
+  function parseHash(){
+    var h = (location.hash||'').replace(/^#\/?/,'');
+    return valid(h) ? h : 'Splash';
+  }
+  function go(name){
+    if(!valid(name)) return;
+    if(parseHash() === name){ render(); return; }
+    location.hash = '#/' + name;       /* triggers hashchange -> render */
+  }
+  function onNav(target){
+    lastOnNav = Date.now();
+    var t = ALIAS[target] || (valid(target) ? target : null);
+    if(t) go(t); else if(NEXT[current]) go(NEXT[current]);
+  }
+
+  function render(){
+    current = parseHash();
+    var Comp = S[current];
+    document.getElementById('tag').textContent = '#/' + current;
+    document.getElementById('btn-next').disabled = !NEXT[current];
+    root.render(React.createElement('div',{className:'mmf-screen'},
+      React.createElement(Comp, { onNav: onNav })));
+    highlightMenu();
+    fitScale();
+    window.scrollTo(0,0);
+  }
+
+  /* ---------- click interception inside the phone ---------- */
+  function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+  host.addEventListener('click', function(e){
+    /* if a screen's own onNav just handled it, don't double-navigate */
+    if(Date.now() - lastOnNav < 60) return;
+
+    var el = e.target.closest('button,[role="button"],a,[data-nav]');
+    if(!el){
+      /* clickable div rows (cursor:pointer) */
+      var p = e.target;
+      while(p && p !== host){
+        if(getComputedStyle(p).cursor === 'pointer'){ el = p; break; }
+        p = p.parentElement;
+      }
+    }
+    if(!el || !host.contains(el)) return;
+
+    var txt = norm(el.textContent);
+    var map = TEXT_NAV[current];
+
+    /* 1) data-nav attribute */
+    var dn = el.getAttribute && el.getAttribute('data-nav');
+    if(dn){ e.preventDefault(); onNav(dn); return; }
+
+    /* 2) exact text branch for this screen */
+    if(map && map[txt]){ e.preventDefault(); go(map[txt]); return; }
+
+    /* never hijack close/cancel controls */
+    for(var i=0;i<EXCLUDE_TEXT.length;i++){ if(txt.indexOf(EXCLUDE_TEXT[i])>-1) return; }
+
+    var r = el.getBoundingClientRect();
+    var fr = host.getBoundingClientRect();
+    var scale = (fr.width||390)/390;
+    var w = r.width/scale, h = r.height/scale;
+    var topInFrame = (r.top - fr.top)/scale;
+    var leftInFrame = (r.left - fr.left)/scale;
+    var hasSvg = el.querySelector && el.querySelector('svg');
+
+    /* 3) back control: small, top-left, icon, little/no text */
+    if(topInFrame < 110 && leftInFrame < 90 && w < 64 && h < 64 && hasSvg && txt.length < 3){
+      e.preventDefault(); history.back(); return;
+    }
+
+    /* 4) primary CTA: wide solid button -> flow next */
+    if(w >= 390*0.5 && h >= 42 && txt.length > 0){
+      e.preventDefault();
+      if(NEXT[current]) go(NEXT[current]);
+      return;
+    }
+    /* otherwise let the screen handle its own interaction (segments, sheets, sliders) */
+  }, false);
+
+  /* ---------- chrome buttons ---------- */
+  document.getElementById('btn-back').onclick = function(){ history.back(); };
+  document.getElementById('btn-home').onclick = function(){ go('Home'); };
+  document.getElementById('btn-next').onclick = function(){ if(NEXT[current]) go(NEXT[current]); };
+
+  /* ---------- menu ---------- */
+  var menu = document.getElementById('menu');
+  var listEl = document.getElementById('menu-list');
+  function buildMenu(){
+    var html = '';
+    GROUPS.forEach(function(g){
+      var items = g[1].filter(valid);
+      if(!items.length) return;
+      html += '<div class="grp">'+g[0]+'</div>';
+      items.forEach(function(name){
+        var n = ORDER.indexOf(name); var idx = n>=0 ? (n+1) : '';
+        html += '<button class="item" data-go="'+name+'"><span class="idx">'+idx+'</span>'+name+'</button>';
+      });
+    });
+    listEl.innerHTML = html;
+  }
+  function highlightMenu(){
+    listEl.querySelectorAll('.item').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-go')===current);
+    });
+  }
+  listEl.addEventListener('click', function(e){
+    var b = e.target.closest('[data-go]'); if(!b) return;
+    go(b.getAttribute('data-go')); closeMenu();
+  });
+  document.getElementById('btn-menu').onclick = function(){
+    menu.classList.add('open');
+    var s=document.getElementById('menu-search'); s.value=''; filterMenu(''); setTimeout(function(){s.focus();},50);
+    var act = listEl.querySelector('.item.active'); if(act) act.scrollIntoView({block:'center'});
+  };
+  function closeMenu(){ menu.classList.remove('open'); }
+  menu.addEventListener('click', function(e){ if(e.target.hasAttribute('data-close')) closeMenu(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
+  function filterMenu(q){
+    q = q.toLowerCase();
+    listEl.querySelectorAll('.item').forEach(function(b){
+      var on = b.getAttribute('data-go').toLowerCase().indexOf(q)>-1;
+      b.style.display = on ? '' : 'none';
+    });
+    listEl.querySelectorAll('.grp').forEach(function(g){
+      var sib=g.nextElementSibling, any=false;
+      while(sib && sib.classList.contains('item')){ if(sib.style.display!=='none'){any=true;break;} sib=sib.nextElementSibling; }
+      g.style.display = any ? '' : 'none';
+    });
+  }
+  document.getElementById('menu-search').addEventListener('input', function(e){ filterMenu(e.target.value); });
+
+  /* ---------- responsive scaling of the 390x844 frame ---------- */
+  function fitScale(){
+    var stage = document.querySelector('.stage');
+    var scaler = document.getElementById('scaler');
+    var availH = stage.clientHeight - 8;
+    var availW = stage.clientWidth - 8;
+    var s = Math.min(availH/844, availW/390, 1);
+    if(s < 0.4) s = 0.4;
+    scaler.style.transform = 'scale('+s+')';
+    scaler.style.height = (844*s)+'px';
+    scaler.style.width = (390*s)+'px';
+  }
+  window.addEventListener('resize', fitScale);
+
+  /* ---------- boot ---------- */
+  if(!window.React || !Object.keys(S).length){
+    host.innerHTML = '<div style="color:#fff;font:600 14px Manrope">Bundle failed to load.</div>';
+    return;
+  }
+  buildMenu();
+  window.addEventListener('hashchange', render);
+  if(!location.hash) location.replace('#/Splash');
+  render();
+})();
+</script>
+</body>
+</html>
