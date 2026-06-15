@@ -247,7 +247,7 @@
   var phase = 'owned';                 /* default for direct/menu visits = full app */
   var addMethod = 'qpay';              /* remembered top-up method on AddMoneyAmount */
 
-  function walletView(){ return phase==='owned' ? 'default' : phase==='funded' ? 'empty' : 'zero'; }
+  function walletView(){ return phase==='owned' ? 'default' : phase==='funded' ? 'funded' : 'empty'; }
   function homeProps(){ return phase==='owned'
       ? { portfolio:'filled', loanState:'active' }
       : { portfolio:'empty', loanState:'check-eligibility' }; }

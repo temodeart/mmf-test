@@ -1,4 +1,4 @@
-/* MMF screens bundle — precompiled from DA->CL export (contract v1.0). */
+/* MMF screens bundle — precompiled from DA->CL export 2 (contract v1.0). */
 (function(){ if(!window.React){console.error('React missing');return;} 
 
 /* ===== AddMoneyAmount ===== */
@@ -100,7 +100,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -114,13 +114,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -128,19 +136,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -1221,7 +1230,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -1235,13 +1244,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -1249,19 +1266,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -5484,7 +5502,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -5498,13 +5516,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -5512,19 +5538,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -6973,7 +7000,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -6987,13 +7014,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -7001,19 +7036,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -8729,7 +8765,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -8743,13 +8779,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -8757,19 +8801,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -9631,7 +9676,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -9645,13 +9690,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -9659,19 +9712,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -10435,7 +10489,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -10449,13 +10503,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -10463,19 +10525,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -11519,7 +11582,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -11533,13 +11596,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -11547,19 +11618,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -12437,7 +12509,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -12451,13 +12523,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -12465,19 +12545,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -13910,7 +13991,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -13924,13 +14005,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -13938,19 +14027,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -14689,7 +14779,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -14703,13 +14793,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -14717,19 +14815,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -16295,7 +16394,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -16309,13 +16408,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -16323,19 +16430,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -23498,7 +23606,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -23512,13 +23620,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -23526,19 +23642,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -24448,7 +24565,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -24462,13 +24579,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -24476,19 +24601,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
@@ -25273,7 +25399,7 @@
     } }, /* @__PURE__ */ React.createElement("div", { style: { width: 44, height: 44, borderRadius: 12, background: C.indigoSoft, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M12 5v14M5 12h14", stroke: C.indigo, strokeWidth: "2.4", strokeLinecap: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 14, fontWeight: 800, color: C.ink, letterSpacing: "-0.01em" } }, "\u0414\u0430\u0445\u0438\u043D \u0437\u044D\u044D\u043B \u0445\u04AF\u0441\u044D\u0445"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11.5, color: C.muted, marginTop: 2, lineHeight: 1.4 } }, "\u0418\u0434\u044D\u0432\u0445\u0442\u044D\u0439 \u0437\u044D\u044D\u043B\u0442\u044D\u0439 \u0447 \u0448\u0438\u043D\u044D \u0445\u04AF\u0441\u044D\u043B\u0442 \u0438\u043B\u0433\u044D\u044D\u0445 \u0431\u043E\u043B\u043E\u043C\u0436\u0442\u043E\u0439")), /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", style: { flexShrink: 0 } }, /* @__PURE__ */ React.createElement("path", { d: "M9 6l6 6-6 6", stroke: C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { height: 8 } })), /* @__PURE__ */ React.createElement(BottomTabs, { active: activeTab, onNav }));
   };
   const Wallet = ({ activeTab = "wallet", onNav, view = "default", listingView = null }) => {
-    const cash = view === "zero" ? 0 : 12e6;
+    const cash = 12e6;
     const base = [
       { issuer: "\u041A\u0430\u043F\u0438\u0442\u0440\u043E\u043D \u0411\u0430\u043D\u043A", ticker: "CAPIT 1450", type: "\u0421\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0442", ab: "CD", c: C.blue, valN: 82e5, val: "8,200,000", y: "15.5", mat: "278 \u0445\u043E\u043D\u043E\u0433", matDays: 278, status: "" },
       { issuer: "\u0413\u043E\u043B\u0434\u0435\u043D \u0425\u0438\u043B\u043B \u041F\u0430\u0440\u0442\u043D\u0435\u0440\u0441", ticker: "GOLDH 2300", type: "\u0418\u0442\u0433\u044D\u043B\u0446\u044D\u043B", ab: "\u0418\u0422", c: "#F59E0B", valN: 12e6, val: "12,000,000", y: "25.6", mat: "327 \u0445\u043E\u043D\u043E\u0433", matDays: 327, status: "onsale" },
@@ -25286,7 +25412,7 @@
       { issuer: "\u0417\u044D\u044D\u043B\u0438 \u041A\u0430\u043F\u0438\u0442\u0430\u043B \u0411\u0411\u0421\u0411", ticker: "ZEELY 2100", type: "\u0418\u0442\u0433\u044D\u043B\u0446\u044D\u043B", ab: "\u0418\u0422", c: "#0EA5A5", valN: 21e5, val: "2,100,000", y: "21.4", mat: "141 \u0445\u043E\u043D\u043E\u0433", matDays: 141, status: "onsale" },
       { issuer: "\u041A\u0430\u043F\u0438\u0442\u0440\u043E\u043D \u0411\u0430\u043D\u043A", ticker: "CAPIT 1620", type: "\u0421\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0442", ab: "CD", c: C.blue, valN: 94e5, val: "9,400,000", y: "14.8", mat: "310 \u0445\u043E\u043D\u043E\u0433", matDays: 310, status: "" }
     ];
-    const holdings = view === "empty" || view === "zero" ? [] : view === "many" ? [...base, ...extra] : base;
+    const holdings = view === "empty" || view === "funded" ? [] : view === "many" ? [...base, ...extra] : base;
     const holdTotal = holdings.reduce((s, h) => s + h.valN, 0);
     const total = cash + holdTotal;
     const fmt = (n) => n.toLocaleString("en-US");
@@ -25331,7 +25457,10 @@
       setToast(true);
       setTimeout(() => setToast(false), 2600);
     };
-    return /* @__PURE__ */ React.createElement(Frame, { label: "28 \u2014 Wallet \xB7 \u0411\u0430\u0433\u0446" }, /* @__PURE__ */ React.createElement("div", { style: { padding: "6px 24px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 24, fontWeight: 800, color: C.ink, letterSpacing: "-0.02em" } }, "\u0425\u044D\u0442\u044D\u0432\u0447")), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, overflow: "auto", padding: "0 24px 12px" } }, /* @__PURE__ */ React.createElement("div", { style: { borderRadius: 22, padding: 20, background: `linear-gradient(135deg, ${C.navy} 0%, ${C.navy3} 100%)`, color: "#fff", position: "relative", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", right: -40, top: -40, opacity: 0.35 } }, /* @__PURE__ */ React.createElement(LogoMark, { size: 140 })), /* @__PURE__ */ React.createElement("div", { style: { position: "relative" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, opacity: 0.7, fontWeight: 600 } }, "\u0411\u044D\u043B\u044D\u043D \u043C\u04E9\u043D\u0433\u04E9 \xB7 \u0425\u044D\u0442\u044D\u0432\u0447"), /* @__PURE__ */ React.createElement("div", { style: { background: "rgba(255,255,255,.1)", padding: "4px 10px", borderRadius: 999, fontSize: 11, fontWeight: 700 } }, "MNT")), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 36, fontWeight: 800, marginTop: 10, letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" } }, "\u20AE ", fmt(cash)), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, opacity: 0.55, fontWeight: 600, marginTop: 4, fontVariantNumeric: "tabular-nums" } }, "\u2116 200001281 \xB7 \u0425\u0430\u0430\u043D \u0411\u0430\u043D\u043A \u2022\u2022\u2022\u2022450"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, marginTop: 18 } }, /* @__PURE__ */ React.createElement("button", { onClick: () => onNav && onNav("addAmount"), style: { flex: 1, height: 44, borderRadius: 12, background: "#fff", border: "none", color: C.ink, fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer" } }, /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M12 5v14M5 12l7-7 7 7", stroke: C.green, strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round" })), "\u041E\u0440\u043B\u043E\u0433\u043E"), /* @__PURE__ */ React.createElement("button", { onClick: () => onNav && onNav("wdAmount"), style: { flex: 1, height: 44, borderRadius: 12, background: "rgba(255,255,255,.12)", border: "1px solid rgba(255,255,255,.18)", color: "#fff", fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer" } }, /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M12 19V5M5 12l7 7 7-7", stroke: "#fff", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round" })), "\u0417\u0430\u0440\u043B\u0430\u0433\u0430")))), view !== "zero" && /* @__PURE__ */ React.createElement(WalletBarChart, null), view !== "zero" && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 14, background: "#fff", borderRadius: 20, padding: 18, border: `1px solid ${C.line2}` } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: C.muted, fontWeight: 700 } }, "\u041D\u0438\u0439\u0442 \u0445\u04E9\u0440\u04E9\u043D\u0433\u04E9"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 26, fontWeight: 800, color: C.ink, marginTop: 2, letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" } }, "\u20AE ", fmt(total))), holdings.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { textAlign: "right" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.muted, fontWeight: 600 } }, "\u041D\u0438\u0439\u0442 \u04E9\u0433\u04E9\u04E9\u0436"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 15, fontWeight: 800, color: C.green, fontVariantNumeric: "tabular-nums" } }, "+18.4%"))), holdings.length > 0 ? /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 18, marginTop: 14 } }, /* @__PURE__ */ React.createElement("svg", { width: "118", height: "118", viewBox: "0 0 120 120", style: { flexShrink: 0 } }, segs.map((s, i) => /* @__PURE__ */ React.createElement(
+    if (view === "empty") {
+      return /* @__PURE__ */ React.createElement(Frame, { label: "28A \u2014 Wallet \xB7 \u0445\u043E\u043E\u0441\u043E\u043D" }, /* @__PURE__ */ React.createElement("div", { style: { padding: "6px 24px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 24, fontWeight: 800, color: C.ink, letterSpacing: "-0.02em" } }, "\u0425\u044D\u0442\u044D\u0432\u0447")), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, overflow: "auto", padding: "0 24px 100px" } }, /* @__PURE__ */ React.createElement("div", { style: { borderRadius: 22, padding: 20, background: `linear-gradient(135deg, ${C.navy} 0%, ${C.navy3} 100%)`, color: "#fff", position: "relative", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", right: -40, top: -40, opacity: 0.25 } }, /* @__PURE__ */ React.createElement(LogoMark, { size: 140 })), /* @__PURE__ */ React.createElement("div", { style: { position: "relative" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, opacity: 0.7, fontWeight: 600 } }, "\u0411\u044D\u043B\u044D\u043D \u043C\u04E9\u043D\u0433\u04E9 \xB7 \u0425\u044D\u0442\u044D\u0432\u0447"), /* @__PURE__ */ React.createElement("div", { style: { background: "rgba(255,255,255,.1)", padding: "4px 10px", borderRadius: 999, fontSize: 11, fontWeight: 700 } }, "MNT")), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 36, fontWeight: 800, marginTop: 10, letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" } }, "\u20AE 0"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, opacity: 0.55, fontWeight: 600, marginTop: 4, fontVariantNumeric: "tabular-nums" } }, "\u2116 200001281 \xB7 \u0425\u0430\u0430\u043D \u0411\u0430\u043D\u043A \u2022\u2022\u2022\u2022450"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, marginTop: 18 } }, /* @__PURE__ */ React.createElement("button", { onClick: () => onNav && onNav("addAmount"), style: { flex: 1, height: 44, borderRadius: 12, background: "#fff", border: "none", color: C.ink, fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer" } }, /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M12 5v14M5 12l7-7 7 7", stroke: C.green, strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round" })), "\u041E\u0440\u043B\u043E\u0433\u043E"), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, height: 44, borderRadius: 12, background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.12)", color: "rgba(255,255,255,.4)", fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", gap: 6 } }, /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M12 19V5M5 12l7 7 7-7", stroke: "rgba(255,255,255,.4)", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round" })), "\u0417\u0430\u0440\u043B\u0430\u0433\u0430")))), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 14, background: "#fff", borderRadius: 20, border: `1px dashed ${C.line}`, padding: "36px 24px", textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { width: 66, height: 66, borderRadius: 19, background: C.indigoSoft, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto" } }, /* @__PURE__ */ React.createElement("svg", { width: "30", height: "30", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "3", stroke: C.indigo, strokeWidth: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18", stroke: C.indigo, strokeWidth: "2" }), /* @__PURE__ */ React.createElement("circle", { cx: "16.5", cy: "15", r: "1.4", fill: C.indigo }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 800, color: C.ink, marginTop: 16, letterSpacing: "-0.01em" } }, "\u0422\u0430\u043D\u044B \u0431\u0430\u0433\u0446 \u0445\u043E\u043E\u0441\u043E\u043D \u0431\u0430\u0439\u043D\u0430"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12.5, color: C.muted, marginTop: 8, lineHeight: 1.55, maxWidth: 264, marginLeft: "auto", marginRight: "auto" } }, "\u0425\u044D\u0442\u044D\u0432\u0447\u044D\u044D \u0446\u044D\u043D\u044D\u0433\u043B\u044D\u044D\u0434 \u044D\u0445\u043D\u0438\u0439 \u0431\u04AF\u0442\u044D\u044D\u0433\u0434\u044D\u0445\u04AF\u04AF\u043D\u044D\u044D \u0430\u0432\u0441\u043D\u0430\u0430\u0440 \u0431\u0430\u0433\u0446, \u04E9\u0433\u04E9\u04E9\u0436, \u0433\u04AF\u0439\u043B\u0433\u044D\u044D\u043D\u0438\u0439 \u0442\u04AF\u04AF\u0445 \u044D\u043D\u0434 \u0445\u0430\u0440\u0430\u0433\u0434\u0430\u043D\u0430."), /* @__PURE__ */ React.createElement("button", { onClick: () => onNav && onNav("addAmount"), style: { width: "100%", height: 48, borderRadius: 14, background: C.indigo, color: "#fff", border: "none", fontWeight: 700, fontSize: 14, cursor: "pointer", marginTop: 20, boxShadow: "0 8px 22px -8px rgba(79,70,229,.5)" } }, "\u0425\u044D\u0442\u044D\u0432\u0447 \u0446\u044D\u043D\u044D\u0433\u043B\u044D\u0445"), /* @__PURE__ */ React.createElement("button", { onClick: () => onNav && onNav("trade"), style: { width: "100%", height: 46, borderRadius: 14, background: "#fff", color: C.ink, border: `1.5px solid ${C.line}`, fontWeight: 700, fontSize: 14, cursor: "pointer", marginTop: 10 } }, "\u0411\u04AF\u0442\u044D\u044D\u0433\u0434\u044D\u0445\u04AF\u04AF\u043D \u04AF\u0437\u044D\u0445"))), /* @__PURE__ */ React.createElement(BottomTabs, { active: activeTab, onNav }));
+    }
+    return /* @__PURE__ */ React.createElement(Frame, { label: "28 \u2014 Wallet \xB7 \u0411\u0430\u0433\u0446" }, /* @__PURE__ */ React.createElement("div", { style: { padding: "6px 24px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 24, fontWeight: 800, color: C.ink, letterSpacing: "-0.02em" } }, "\u0425\u044D\u0442\u044D\u0432\u0447")), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, overflow: "auto", padding: "0 24px 12px" } }, /* @__PURE__ */ React.createElement("div", { style: { borderRadius: 22, padding: 20, background: `linear-gradient(135deg, ${C.navy} 0%, ${C.navy3} 100%)`, color: "#fff", position: "relative", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", right: -40, top: -40, opacity: 0.35 } }, /* @__PURE__ */ React.createElement(LogoMark, { size: 140 })), /* @__PURE__ */ React.createElement("div", { style: { position: "relative" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, opacity: 0.7, fontWeight: 600 } }, "\u0411\u044D\u043B\u044D\u043D \u043C\u04E9\u043D\u0433\u04E9 \xB7 \u0425\u044D\u0442\u044D\u0432\u0447"), /* @__PURE__ */ React.createElement("div", { style: { background: "rgba(255,255,255,.1)", padding: "4px 10px", borderRadius: 999, fontSize: 11, fontWeight: 700 } }, "MNT")), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 36, fontWeight: 800, marginTop: 10, letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" } }, "\u20AE ", fmt(cash)), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, opacity: 0.55, fontWeight: 600, marginTop: 4, fontVariantNumeric: "tabular-nums" } }, "\u2116 200001281 \xB7 \u0425\u0430\u0430\u043D \u0411\u0430\u043D\u043A \u2022\u2022\u2022\u2022450"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, marginTop: 18 } }, /* @__PURE__ */ React.createElement("button", { onClick: () => onNav && onNav("addAmount"), style: { flex: 1, height: 44, borderRadius: 12, background: "#fff", border: "none", color: C.ink, fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer" } }, /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M12 5v14M5 12l7-7 7 7", stroke: C.green, strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round" })), "\u041E\u0440\u043B\u043E\u0433\u043E"), /* @__PURE__ */ React.createElement("button", { onClick: () => onNav && onNav("wdAmount"), style: { flex: 1, height: 44, borderRadius: 12, background: "rgba(255,255,255,.12)", border: "1px solid rgba(255,255,255,.18)", color: "#fff", fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer" } }, /* @__PURE__ */ React.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M12 19V5M5 12l7 7 7-7", stroke: "#fff", strokeWidth: "2.6", strokeLinecap: "round", strokeLinejoin: "round" })), "\u0417\u0430\u0440\u043B\u0430\u0433\u0430")))), /* @__PURE__ */ React.createElement(WalletBarChart, null), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 14, background: "#fff", borderRadius: 20, padding: 18, border: `1px solid ${C.line2}` } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: C.muted, fontWeight: 700 } }, "\u041D\u0438\u0439\u0442 \u0445\u04E9\u0440\u04E9\u043D\u0433\u04E9"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 26, fontWeight: 800, color: C.ink, marginTop: 2, letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" } }, "\u20AE ", fmt(total))), holdings.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { textAlign: "right" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.muted, fontWeight: 600 } }, "\u041D\u0438\u0439\u0442 \u04E9\u0433\u04E9\u04E9\u0436"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 15, fontWeight: 800, color: C.green, fontVariantNumeric: "tabular-nums" } }, "+18.4%"))), holdings.length > 0 ? /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 18, marginTop: 14 } }, /* @__PURE__ */ React.createElement("svg", { width: "118", height: "118", viewBox: "0 0 120 120", style: { flexShrink: 0 } }, segs.map((s, i) => /* @__PURE__ */ React.createElement(
       "circle",
       {
         key: i,
@@ -25356,13 +25485,13 @@
       fontWeight: 600,
       cursor: "pointer",
       flexShrink: 0
-    } }, t))), holdings.length === 0 ? /* @__PURE__ */ React.createElement("div", { style: { marginTop: 12, background: "#fff", borderRadius: 18, border: `1px dashed ${C.line}`, padding: "34px 24px", textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { width: 60, height: 60, borderRadius: 18, background: C.indigoSoft, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto" } }, /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "7", width: "16", height: "13", rx: "2.5", stroke: C.indigo, strokeWidth: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M4 11h16M9 4h6", stroke: C.indigo, strokeWidth: "2", strokeLinecap: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 15, fontWeight: 800, color: C.ink, marginTop: 16 } }, "\u0411\u04AF\u0442\u044D\u044D\u0433\u0434\u044D\u0445\u04AF\u04AF\u043D \u0430\u043B\u0433\u0430"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12.5, color: C.muted, marginTop: 6, lineHeight: 1.5, maxWidth: 260, marginLeft: "auto", marginRight: "auto" } }, "\u0422\u0430 \u044D\u0445\u043D\u0438\u0439 \u0445\u04E9\u0440\u04E9\u043D\u0433\u04E9 \u043E\u0440\u0443\u0443\u043B\u0430\u043B\u0442\u0430\u0430 \u0445\u0438\u0439\u0441\u043D\u044D\u044D\u0440 \u044D\u043D\u0434 \u0431\u04AF\u0442\u044D\u044D\u0433\u0434\u044D\u0445\u04AF\u04AF\u043D\u04AF\u04AF\u0434 \u0445\u0430\u0440\u0430\u0433\u0434\u0430\u043D\u0430."), /* @__PURE__ */ React.createElement("button", { onClick: () => onNav && onNav("trade"), style: { height: 44, padding: "0 22px", borderRadius: 12, marginTop: 16, background: C.indigo, color: "#fff", border: "none", fontWeight: 700, fontSize: 14, cursor: "pointer" } }, "\u0425\u04E9\u0440\u04E9\u043D\u0433\u04E9 \u043E\u0440\u0443\u0443\u043B\u0436 \u044D\u0445\u043B\u044D\u0445")) : /* @__PURE__ */ React.createElement("div", { style: { marginTop: 12, display: "flex", flexDirection: "column", gap: 10 } }, shownHoldings.map((h, i) => /* @__PURE__ */ React.createElement(WHolding, { key: i, h, onNav }))), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 22, display: "flex", alignItems: "center", justifyContent: "space-between" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 14, fontWeight: 800, color: C.ink, letterSpacing: "-0.01em" } }, "\u0417\u0430\u0440\u0430\u0433\u0434\u0430\u0436 \u0431\u0430\u0439\u0433\u0430\u0430", listings.length ? " (" + listings.length + ")" : ""), listings.length > 0 && (selMode ? /* @__PURE__ */ React.createElement("button", { onClick: exitSel, style: { fontSize: 12.5, fontWeight: 700, color: C.muted, background: "none", border: "none", cursor: "pointer" } }, "\u0411\u043E\u043B\u0438\u0445") : /* @__PURE__ */ React.createElement("button", { onClick: () => setSelMode(true), style: { fontSize: 12.5, fontWeight: 700, color: C.indigo, background: "none", border: "none", cursor: "pointer" } }, "\u0421\u043E\u043D\u0433\u043E\u0445"))), listings.length === 0 ? /* @__PURE__ */ React.createElement("div", { style: { marginTop: 12, background: "#fff", borderRadius: 16, border: `1px dashed ${C.line}`, padding: "20px", display: "flex", alignItems: "center", gap: 14 } }, /* @__PURE__ */ React.createElement("div", { style: { width: 44, height: 44, borderRadius: 12, background: "#F4F5F9", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M3.5 7.5h17l-1.4 12.2a1 1 0 01-1 .8H5.9a1 1 0 01-1-.8L3.5 7.5z", stroke: C.muted2, strokeWidth: "2", strokeLinejoin: "round" }), /* @__PURE__ */ React.createElement("path", { d: "M8.5 7.5V6a3.5 3.5 0 017 0v1.5", stroke: C.muted2, strokeWidth: "2" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12.5, color: C.muted, fontWeight: 600, lineHeight: 1.5 } }, "\u041E\u0434\u043E\u043E\u0433\u043E\u043E\u0440 \u0437\u0430\u0440\u0430\u0445 \u0437\u0430\u0445\u0438\u0430\u043B\u0433\u0430 \u0431\u0430\u0439\u0445\u0433\u04AF\u0439 \u0431\u0430\u0439\u043D\u0430")) : /* @__PURE__ */ React.createElement(React.Fragment, null, selMode && /* @__PURE__ */ React.createElement("button", { onClick: toggleAll, style: { width: "100%", marginTop: 12, display: "flex", alignItems: "center", gap: 12, padding: "11px 14px", background: "#fff", border: `1px solid ${C.line2}`, borderRadius: 12, cursor: "pointer" } }, /* @__PURE__ */ React.createElement(WCheckBox, { checked: allSelected }), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12.5, fontWeight: 700, color: C.ink } }, "\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0441\u043E\u043D\u0433\u043E\u0445"), /* @__PURE__ */ React.createElement("span", { style: { marginLeft: "auto", fontSize: 11.5, color: C.muted, fontWeight: 600 } }, sel.length, " / ", listings.length, " \u0441\u043E\u043D\u0433\u043E\u0433\u0434\u0441\u043E\u043D")), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 12, display: "flex", flexDirection: "column", gap: 10 } }, listings.map((h, i) => /* @__PURE__ */ React.createElement(WListing, { key: i, h, selectMode: selMode, checked: sel.includes(h.ticker), onToggle: () => toggleSel(h.ticker) })))), view !== "zero" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { style: { marginTop: 18, display: "flex", alignItems: "center", justifyContent: "space-between" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 14, fontWeight: 800, color: C.ink, letterSpacing: "-0.01em" } }, "\u0413\u04AF\u0439\u043B\u0433\u044D\u044D\u043D\u0438\u0439 \u0442\u04AF\u04AF\u0445"), /* @__PURE__ */ React.createElement("span", { onClick: () => onNav && onNav("txHistory"), style: { fontSize: 12, color: C.indigo, fontWeight: 700, cursor: "pointer" } }, "\u0411\u04AF\u0433\u0434 \u2192")), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 10, background: "#fff", borderRadius: 16, border: `1px solid ${C.line2}`, overflow: "hidden" } }, (view === "empty" ? [
+    } }, t))), holdings.length === 0 ? /* @__PURE__ */ React.createElement("div", { style: { marginTop: 12, background: "#fff", borderRadius: 18, border: `1px dashed ${C.line}`, padding: "34px 24px", textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { width: 60, height: 60, borderRadius: 18, background: C.indigoSoft, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto" } }, /* @__PURE__ */ React.createElement("svg", { width: "28", height: "28", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "7", width: "16", height: "13", rx: "2.5", stroke: C.indigo, strokeWidth: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M4 11h16M9 4h6", stroke: C.indigo, strokeWidth: "2", strokeLinecap: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 15, fontWeight: 800, color: C.ink, marginTop: 16 } }, "\u0411\u04AF\u0442\u044D\u044D\u0433\u0434\u044D\u0445\u04AF\u04AF\u043D \u0430\u043B\u0433\u0430"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12.5, color: C.muted, marginTop: 6, lineHeight: 1.5, maxWidth: 260, marginLeft: "auto", marginRight: "auto" } }, "\u0422\u0430 \u044D\u0445\u043D\u0438\u0439 \u0445\u04E9\u0440\u04E9\u043D\u0433\u04E9 \u043E\u0440\u0443\u0443\u043B\u0430\u043B\u0442\u0430\u0430 \u0445\u0438\u0439\u0441\u043D\u044D\u044D\u0440 \u044D\u043D\u0434 \u0431\u04AF\u0442\u044D\u044D\u0433\u0434\u044D\u0445\u04AF\u04AF\u043D\u04AF\u04AF\u0434 \u0445\u0430\u0440\u0430\u0433\u0434\u0430\u043D\u0430."), /* @__PURE__ */ React.createElement("button", { onClick: () => onNav && onNav("trade"), style: { height: 44, padding: "0 22px", borderRadius: 12, marginTop: 16, background: C.indigo, color: "#fff", border: "none", fontWeight: 700, fontSize: 14, cursor: "pointer" } }, "\u0425\u04E9\u0440\u04E9\u043D\u0433\u04E9 \u043E\u0440\u0443\u0443\u043B\u0436 \u044D\u0445\u043B\u044D\u0445")) : /* @__PURE__ */ React.createElement("div", { style: { marginTop: 12, display: "flex", flexDirection: "column", gap: 10 } }, shownHoldings.map((h, i) => /* @__PURE__ */ React.createElement(WHolding, { key: i, h, onNav }))), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 22, display: "flex", alignItems: "center", justifyContent: "space-between" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 14, fontWeight: 800, color: C.ink, letterSpacing: "-0.01em" } }, "\u0417\u0430\u0440\u0430\u0433\u0434\u0430\u0436 \u0431\u0430\u0439\u0433\u0430\u0430", listings.length ? " (" + listings.length + ")" : ""), listings.length > 0 && (selMode ? /* @__PURE__ */ React.createElement("button", { onClick: exitSel, style: { fontSize: 12.5, fontWeight: 700, color: C.muted, background: "none", border: "none", cursor: "pointer" } }, "\u0411\u043E\u043B\u0438\u0445") : /* @__PURE__ */ React.createElement("button", { onClick: () => setSelMode(true), style: { fontSize: 12.5, fontWeight: 700, color: C.indigo, background: "none", border: "none", cursor: "pointer" } }, "\u0421\u043E\u043D\u0433\u043E\u0445"))), listings.length === 0 ? /* @__PURE__ */ React.createElement("div", { style: { marginTop: 12, background: "#fff", borderRadius: 16, border: `1px dashed ${C.line}`, padding: "20px", display: "flex", alignItems: "center", gap: 14 } }, /* @__PURE__ */ React.createElement("div", { style: { width: 44, height: 44, borderRadius: 12, background: "#F4F5F9", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M3.5 7.5h17l-1.4 12.2a1 1 0 01-1 .8H5.9a1 1 0 01-1-.8L3.5 7.5z", stroke: C.muted2, strokeWidth: "2", strokeLinejoin: "round" }), /* @__PURE__ */ React.createElement("path", { d: "M8.5 7.5V6a3.5 3.5 0 017 0v1.5", stroke: C.muted2, strokeWidth: "2" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12.5, color: C.muted, fontWeight: 600, lineHeight: 1.5 } }, "\u041E\u0434\u043E\u043E\u0433\u043E\u043E\u0440 \u0437\u0430\u0440\u0430\u0445 \u0437\u0430\u0445\u0438\u0430\u043B\u0433\u0430 \u0431\u0430\u0439\u0445\u0433\u04AF\u0439 \u0431\u0430\u0439\u043D\u0430")) : /* @__PURE__ */ React.createElement(React.Fragment, null, selMode && /* @__PURE__ */ React.createElement("button", { onClick: toggleAll, style: { width: "100%", marginTop: 12, display: "flex", alignItems: "center", gap: 12, padding: "11px 14px", background: "#fff", border: `1px solid ${C.line2}`, borderRadius: 12, cursor: "pointer" } }, /* @__PURE__ */ React.createElement(WCheckBox, { checked: allSelected }), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12.5, fontWeight: 700, color: C.ink } }, "\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0441\u043E\u043D\u0433\u043E\u0445"), /* @__PURE__ */ React.createElement("span", { style: { marginLeft: "auto", fontSize: 11.5, color: C.muted, fontWeight: 600 } }, sel.length, " / ", listings.length, " \u0441\u043E\u043D\u0433\u043E\u0433\u0434\u0441\u043E\u043D")), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 12, display: "flex", flexDirection: "column", gap: 10 } }, listings.map((h, i) => /* @__PURE__ */ React.createElement(WListing, { key: i, h, selectMode: selMode, checked: sel.includes(h.ticker), onToggle: () => toggleSel(h.ticker) })))), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 18, display: "flex", alignItems: "center", justifyContent: "space-between" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 14, fontWeight: 800, color: C.ink, letterSpacing: "-0.01em" } }, "\u0413\u04AF\u0439\u043B\u0433\u044D\u044D\u043D\u0438\u0439 \u0442\u04AF\u04AF\u0445"), /* @__PURE__ */ React.createElement("span", { onClick: () => onNav && onNav("txHistory"), style: { fontSize: 12, color: C.indigo, fontWeight: 700, cursor: "pointer" } }, "\u0411\u04AF\u0433\u0434 \u2192")), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 10, background: "#fff", borderRadius: 16, border: `1px solid ${C.line2}`, overflow: "hidden" } }, (view === "funded" ? [
       { t: "\u041E\u0440\u043B\u043E\u0433\u043E", d: "2026-05-21", a: "+ 5,000,000", c: C.green }
     ] : [
       { t: "\u041E\u0440\u043B\u043E\u0433\u043E", d: "2026-05-21", a: "+ 5,000,000", c: C.green },
       { t: "\u0417\u0430\u0445\u0438\u0430\u043B\u0433\u0430: MSTRT 2400", d: "2026-05-20", a: "\u2013 10,000,000", c: C.ink },
       { t: "\u042D\u0440\u0433\u044D\u043D \u0442\u04E9\u043B\u04E9\u043B\u0442: CAPIT 1450", d: "2026-05-18", a: "+ 1,145,000", c: C.green }
-    ]).map((t, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderTop: i ? `1px solid ${C.line2}` : "none" } }, /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 13, fontWeight: 700, color: C.ink, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, t.t), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.muted, marginTop: 2, fontVariantNumeric: "tabular-nums" } }, t.d)), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 13, fontWeight: 700, color: t.c, fontVariantNumeric: "tabular-nums" } }, t.a))))), /* @__PURE__ */ React.createElement("div", { style: { height: 8 } })), selMode ? /* @__PURE__ */ React.createElement("div", { style: { padding: "12px 24px 14px", background: "#fff", borderTop: `1px solid ${C.line2}`, flexShrink: 0 } }, /* @__PURE__ */ React.createElement("button", { disabled: sel.length === 0, onClick: () => setConfirmOpen(true), style: {
+    ]).map((t, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderTop: i ? `1px solid ${C.line2}` : "none" } }, /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 13, fontWeight: 700, color: C.ink, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, t.t), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.muted, marginTop: 2, fontVariantNumeric: "tabular-nums" } }, t.d)), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 13, fontWeight: 700, color: t.c, fontVariantNumeric: "tabular-nums" } }, t.a)))), /* @__PURE__ */ React.createElement("div", { style: { height: 8 } })), selMode ? /* @__PURE__ */ React.createElement("div", { style: { padding: "12px 24px 14px", background: "#fff", borderTop: `1px solid ${C.line2}`, flexShrink: 0 } }, /* @__PURE__ */ React.createElement("button", { disabled: sel.length === 0, onClick: () => setConfirmOpen(true), style: {
       width: "100%",
       height: 50,
       borderRadius: 14,
@@ -25480,7 +25609,7 @@
   } }, /* @__PURE__ */ React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M15 6l-6 6 6 6", stroke: C.ink, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: C.ink, letterSpacing: "-0.01em" } }, title), /* @__PURE__ */ React.createElement("div", { style: { width: 40 } }, right));
   const tabIcons = {
     home: (a) => /* @__PURE__ */ React.createElement("path", { d: "M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinejoin: "round", fill: a ? C.indigoSoft : "none" }),
-    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M4 17l4-4 3 3 5-7 4 6" }), /* @__PURE__ */ React.createElement("circle", { cx: "4", cy: "17", r: "1.5", fill: a ? C.indigo : "none" }), /* @__PURE__ */ React.createElement("circle", { cx: "20", cy: "15", r: "1.5", fill: a ? C.indigo : "none" })),
+    trade: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }, /* @__PURE__ */ React.createElement("path", { d: "M7 20V7" }), /* @__PURE__ */ React.createElement("path", { d: "M3.5 10.5 7 7l3.5 3.5" }), /* @__PURE__ */ React.createElement("path", { d: "M17 4v13" }), /* @__PURE__ */ React.createElement("path", { d: "M20.5 13.5 17 17l-3.5-3.5" })),
     loan: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round", fill: "none" }, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "7", width: "18", height: "12", rx: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M3 11h18" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "15", r: "1.2", fill: a ? C.indigo : C.muted2, stroke: "none" }), /* @__PURE__ */ React.createElement("path", { d: "M13 15h4" })),
     wallet: (a) => /* @__PURE__ */ React.createElement("g", null, /* @__PURE__ */ React.createElement("rect", { x: "3", y: "6", width: "18", height: "13", rx: "2.5", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }), /* @__PURE__ */ React.createElement("path", { d: "M16 12.5h2", stroke: a ? C.indigo : C.muted2, strokeWidth: "2", strokeLinecap: "round" })),
     news: (a) => /* @__PURE__ */ React.createElement("g", { stroke: a ? C.indigo : C.muted2, strokeWidth: "2", fill: a ? C.indigoSoft : "none" }, /* @__PURE__ */ React.createElement("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), /* @__PURE__ */ React.createElement("path", { d: "M8 9h8M8 13h8M8 17h5", strokeLinecap: "round" }))
@@ -25494,13 +25623,21 @@
       { id: "news", label: "\u041C\u044D\u0434\u044D\u044D", target: "news" }
     ];
     return /* @__PURE__ */ React.createElement("div", { style: {
-      height: 80,
-      background: "#fff",
-      borderTop: `1px solid ${C.line2}`,
+      position: "absolute",
+      left: 14,
+      right: 14,
+      bottom: 14,
+      height: 64,
+      zIndex: 20,
+      borderRadius: 26,
+      background: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(22px) saturate(180%)",
+      WebkitBackdropFilter: "blur(22px) saturate(180%)",
+      border: "1px solid rgba(255,255,255,0.8)",
+      boxShadow: "0 16px 36px -10px rgba(15,20,55,.30), 0 4px 12px -4px rgba(15,20,55,.14), inset 0 1px 0 rgba(255,255,255,.95)",
       display: "flex",
-      alignItems: "flex-start",
-      paddingTop: 10,
-      flexShrink: 0
+      alignItems: "center",
+      padding: "0 6px"
     } }, tabs.map((t) => {
       const a = active === t.id;
       return /* @__PURE__ */ React.createElement("div", { key: t.id, onClick: () => onNav && onNav(t.target), style: {
@@ -25508,19 +25645,20 @@
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 4,
+        gap: 3,
         cursor: "pointer"
       } }, /* @__PURE__ */ React.createElement("div", { style: {
-        width: 44,
-        height: 28,
+        width: 42,
+        height: 27,
         borderRadius: 14,
         background: a ? C.indigoSoft : "transparent",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
-      } }, /* @__PURE__ */ React.createElement("svg", { width: "22", height: "22", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
-        fontSize: 11,
-        fontWeight: a ? 700 : 600,
+        justifyContent: "center",
+        transition: "background .15s"
+      } }, /* @__PURE__ */ React.createElement("svg", { width: "21", height: "21", viewBox: "0 0 24 24", fill: "none" }, tabIcons[t.id](a))), /* @__PURE__ */ React.createElement("div", { style: {
+        fontSize: 10,
+        fontWeight: a ? 800 : 600,
         color: a ? C.indigo : C.muted2,
         letterSpacing: "-0.005em"
       } }, t.label));
