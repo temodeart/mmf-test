@@ -219,12 +219,12 @@
     PrimaryMarket:   { "Авах":"PrimaryDetail" },
     PrimaryDetail:   { "Авах":"PrimaryBuySetup" },
     PrimaryBuySetup: { "Үргэлжлүүлэх":"PrimaryBuyReview" },
-    PrimaryBuyReview:{ "Худалдан авах":"PrimaryBuyPin" },
+    PrimaryBuyReview:{ "Худалдан авах":"__buyP" },   /* phase-aware: broke -> top-up */
     PrimaryBuyPin:   { "Худалдан авах":"PrimaryBuySuccess" },
     /* secondary buy flow */
     SecondaryDetail:   { "Авах":"SecondaryBuySetup" },
     SecondaryBuySetup: { "Үргэлжлүүлэх":"SecondaryBuyReview" },
-    SecondaryBuyReview:{ "Худалдан авах":"SecondaryBuyPin" },
+    SecondaryBuyReview:{ "Худалдан авах":"__buyS" },   /* phase-aware: broke -> top-up */
     SecondaryBuyPin:   { "Худалдан авах":"SecondaryBuySuccess" },
     /* sell flow */
     SellSetup:  { "Үргэлжлүүлэх":"SellReview" },
@@ -241,11 +241,15 @@
     WithdrawReview: { "Үргэлжлүүлэх":"WithdrawPin", "Баталгаажуулах":"WithdrawPin" }
   };
 
-  var EXCLUDE_TEXT = ["Хаах","Цуцлах","Болих","Үгүй","Буцах","Хойшлуулах"];
+  /* Buttons that mean the same thing on ANY screen */
+  var GLOBAL_TEXT = { "Хэтэвч цэнэглэх":"AddMoneyAmount", "Цэнэглэх":"AddMoneyAmount" };
+
+  var EXCLUDE_TEXT = ["Хаах","Цуцлах","Болих","Үгүй","Хойшлуулах"];
 
   /* Screens with rich internal state (modals, copy-to-field, pickers): let the
-     screen handle its own clicks. Forward nav only via TEXT_NAV submit + chrome. */
-  var INTERACTIVE = { BankVerify:1, IbanLookupSheet:1, IbanLookupResult:1, AddMoneyAmount:1, AddMoneyBank:1 };
+     screen handle its own clicks. Forward nav only via TEXT_NAV submit + chrome.
+     Trading/Category: card body opens the ticker modal natively; only "Авах" buys. */
+  var INTERACTIVE = { BankVerify:1, IbanLookupSheet:1, IbanLookupResult:1, AddMoneyAmount:1, AddMoneyBank:1, Trading:1, Category:1 };
 
   /* PIN keypad screens: count digit taps; advance to NEXT after 4 digits. */
   var PIN_SCREENS = { PrimaryBuyPin:1, SecondaryBuyPin:1, SellPin:1, WithdrawPin:1, LoanPinConfirm:1 };
@@ -342,6 +346,9 @@
     if(t2 === '__qpay'){ addMethod='qpay'; return false; }
     if(t2 === '__bank'){ addMethod='bank'; return false; }
     if(t2 === '__addContinue'){ go(addMethod==='bank' ? 'AddMoneyBank' : 'AddMoneyQPay'); return true; }
+    /* buy confirm: if the wallet has no money yet, divert to the top-up ("Цэнэглээд авах") flow */
+    if(t2 === '__buyP'){ go(phase==='new' ? 'StateInsufficient' : 'PrimaryBuyPin'); return true; }
+    if(t2 === '__buyS'){ go(phase==='new' ? 'StateInsufficient' : 'SecondaryBuyPin'); return true; }
     go(t2); return true;
   }
   host.addEventListener('click', function(e){
@@ -361,13 +368,12 @@
     if(!el || !host.contains(el)){
       /* text-only fallback: a styled but non-clickable link (e.g. Login "Бүртгүүлэх").
          Climb a few levels from the click target; navigate only on an EXACT key match. */
-      if(map){
-        var q = e.target, lvl = 0;
-        while(q && q !== host && lvl < 4){
-          var qt = norm(q.textContent);
-          if(map[qt]){ if(navTo(map[qt])) e.preventDefault(); return; }
-          q = q.parentElement; lvl++;
-        }
+      var q = e.target, lvl = 0;
+      while(q && q !== host && lvl < 4){
+        var qt = norm(q.textContent);
+        var ft = (map && map[qt]) || GLOBAL_TEXT[qt];
+        if(ft){ if(navTo(ft)) e.preventDefault(); return; }
+        q = q.parentElement; lvl++;
       }
       return;
     }
@@ -378,9 +384,12 @@
     var dn = el.getAttribute && el.getAttribute('data-nav');
     if(dn){ e.preventDefault(); onNav(dn); return; }
 
-    /* 2) text branch for this screen (exact, else longest contained key) */
-    var t2 = matchText(map, txt);
+    /* 2) text branch: per-screen map, then global labels */
+    var t2 = matchText(map, txt) || GLOBAL_TEXT[txt];
     if(t2){ if(navTo(t2)) e.preventDefault(); return; }
+
+    /* text "Буцах" -> go back */
+    if(txt === 'Буцах'){ e.preventDefault(); history.back(); return; }
 
     /* never hijack close/cancel controls */
     for(var i=0;i<EXCLUDE_TEXT.length;i++){ if(txt.indexOf(EXCLUDE_TEXT[i])>-1) return; }
@@ -401,6 +410,14 @@
     /* NotificationList "Бүгдийг унших" (top-right icon, no text) -> mark all read */
     if(current === 'NotificationList' && !txt && hasSvg && leftInFrame > 180 && topInFrame < 120){
       e.preventDefault(); notifRead = true; render(); return;
+    }
+
+    /* Trading/Category: only the "Авах" button buys. Distinguish primary vs secondary
+       by button size (primary card ≈40-44px tall; secondary pill ≈32px; ticker-sheet ≈50px). */
+    if((current === 'Trading' || current === 'Category') && txt === 'Авах'){
+      e.preventDefault();
+      go((h >= 38 && h <= 45) ? 'PrimaryDetail' : 'SecondaryDetail');
+      return;
     }
 
     /* PIN keypad: count digit taps; advance after a full 4-digit PIN.
