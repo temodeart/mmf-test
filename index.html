@@ -169,7 +169,7 @@
     GSignRequest:"GSignWaiting", GSignWaiting:"GSignSuccess", GSignSuccess:"BankVerify", GSignTutorial:"GSignRequest",
     BankVerify:"DepositSending", IbanLookupSheet:"BankVerify", IbanLookupResult:"BankVerify",
     DepositSending:"DepositInfo", DepositInfo:"CodeEntry", CodeEntry:"BankVerified",
-    BankVerified:"KycComplete", KycComplete:"HomeEmpty", HomeEmpty:"Trading",
+    BankVerified:"KycComplete", KycComplete:"Home",
     Splash:"Onb1", Login:"Home",
     ResetEnterPhone:"ResetVerifyCode", ResetVerifyCode:"ResetNewPassword",
     ResetNewPassword:"ResetSuccess", ResetSuccess:"Login",
@@ -200,29 +200,65 @@
     StatePriceChanged:"PrimaryBuyReview", StateOtpError:"PhoneVerify", StateNetworkError:"Home"
   };
 
-  /* Branch points keyed by exact (trimmed) button/label text */
+  /* Branch points: matched against a button's exact text, else the longest key
+     that the clicked element's text contains. Keys must be the real button labels. */
   var TEXT_NAV = {
     Splash:   { "Бүртгүүлэх":"Onb1", "Нэвтрэх":"Login" },
     Login:    { "Нэвтрэх":"Home", "Бүртгүүлэх":"Onb1", "Нууц үг мартсан?":"ResetEnterPhone" },
-    SigningMethod: { "G-Sign":"GSignRequest", "Цахим гарын үсэг":"ESignCanvas" },
+    SigningMethod: { "G-Sign ашиглах":"GSignRequest", "G-Sign хэрхэн ашиглах вэ?":"GSignTutorial", "Цахимаар зурах":"ESignCanvas" },
     ESignSuccess:  { "Данс баталгаажуулах":"BankVerify", "G-Sign-ээр баталгаажуулах":"GSignRequest" },
-    BankVerify:    { "Банкны данс баталгаажуулах":"DepositSending" },
-    OwnedDetail:   { "Хоёрдогч зах зээлд зарах":"SellSetup" }
+    BankVerify:    { "Баталгаажуулах гүйлгээ авах":"DepositSending" },
+    OwnedDetail:   { "Хоёрдогч зах зээлд зарах":"SellSetup" },
+    /* primary buy flow */
+    PrimaryMarket:   { "Авах":"PrimaryDetail" },
+    PrimaryDetail:   { "Авах":"PrimaryBuySetup" },
+    PrimaryBuySetup: { "Үргэлжлүүлэх":"PrimaryBuyReview" },
+    PrimaryBuyReview:{ "Захиалга баталгаажуулах":"PrimaryBuyPin", "Баталгаажуулах":"PrimaryBuyPin" },
+    /* secondary buy flow */
+    SecondaryDetail:   { "Авах":"SecondaryBuySetup" },
+    SecondaryBuySetup: { "Үргэлжлүүлэх":"SecondaryBuyReview" },
+    SecondaryBuyReview:{ "Захиалга баталгаажуулах":"SecondaryBuyPin", "Баталгаажуулах":"SecondaryBuyPin" },
+    /* sell flow */
+    SellSetup:  { "Үргэлжлүүлэх":"SellReview" },
+    SellReview: { "Зарах захиалга өгөх":"SellPin", "Баталгаажуулах":"SellPin" },
+    /* wallet top-up: pick method then continue */
+    AddMoneyAmount: { "QPay":"__qpay", "Банкны шилжүүлэг":"__bank", "Үргэлжлүүлэх":"__addContinue" },
+    AddMoneyQPay:   { "Төлбөр шалгах":"AddMoneySuccess" },
+    AddMoneyBank:   { "Шилжүүлэг хийсэн":"AddMoneyBankPending" },
+    WithdrawReview: { "Үргэлжлүүлэх":"WithdrawPin", "Баталгаажуулах":"WithdrawPin" }
   };
 
   var EXCLUDE_TEXT = ["Хаах","Цуцлах","Болих","Үгүй","Буцах","Хойшлуулах"];
 
   /* Screens with rich internal state (modals, copy-to-field, pickers): let the
      screen handle its own clicks. Forward nav only via TEXT_NAV submit + chrome. */
-  var INTERACTIVE = { BankVerify:1, IbanLookupSheet:1, IbanLookupResult:1 };
+  var INTERACTIVE = { BankVerify:1, IbanLookupSheet:1, IbanLookupResult:1, AddMoneyAmount:1, AddMoneyBank:1 };
+
+  /* PIN keypad screens: count digit taps; advance to NEXT after 4 digits. */
+  var PIN_SCREENS = { PrimaryBuyPin:1, SecondaryBuyPin:1, SellPin:1, WithdrawPin:1, LoanPinConfirm:1 };
 
   /* Waiting screens that auto-advance to NEXT after a short delay (ms) */
-  var AUTO = { MonpepCheck:2600, GSignWaiting:2800, DepositSending:2600 };
+  var AUTO = { MonpepCheck:2600, GSignWaiting:2800, DepositSending:2600, AddMoneyBankPending:2600 };
 
-  /* Virtual routes: render an existing screen component with specific props */
-  var VARIANTS = {
-    HomeEmpty: { screen:"Home", props:{ portfolio:"empty", loanState:"none", label:"10 — Home (шинэ хэрэглэгч)" } }
-  };
+  /* ---------- stateful prototype phase: new -> funded -> owned ---------- */
+  /* new   = just-registered: empty wallet (no cash/chart/total/products/tx)
+     funded= money added but no products yet
+     owned = bought a product (full wallet/home) */
+  var phase = 'owned';                 /* default for direct/menu visits = full app */
+  var addMethod = 'qpay';              /* remembered top-up method on AddMoneyAmount */
+
+  function walletView(){ return phase==='owned' ? 'default' : phase==='funded' ? 'empty' : 'zero'; }
+  function homeProps(){ return phase==='owned'
+      ? { portfolio:'filled', loanState:'active' }
+      : { portfolio:'empty', loanState:'check-eligibility' }; }
+
+  /* Phase transitions triggered by reaching certain screens */
+  function applyPhase(name){
+    if(name==='Onb1') phase='new';                 /* registration started */
+    else if(name==='Login') phase='owned';         /* returning user */
+    else if(name==='AddMoneySuccess' || name==='AddMoneyBankSuccess'){ if(phase!=='owned') phase='funded'; }
+    else if(name==='PrimaryBuySuccess' || name==='SecondaryBuySuccess') phase='owned';
+  }
 
   /* ---------- routing ---------- */
   var host = document.getElementById('frame-host');
@@ -231,7 +267,8 @@
   var lastOnNav = 0;
 
   function resolve(name){
-    if(VARIANTS[name]) return { Comp:S[VARIANTS[name].screen], props:VARIANTS[name].props };
+    if(name==='Wallet' && S.Wallet) return { Comp:S.Wallet, props:{ view:walletView() } };
+    if(name==='Home' && S.Home) return { Comp:S.Home, props:homeProps() };
     if(name && S[name]) return { Comp:S[name], props:{} };
     return null;
   }
@@ -254,6 +291,9 @@
   var autoToken = 0;
   function render(){
     current = parseHash();
+    applyPhase(current);
+    pinTaps = 0;
+    if(current === 'AddMoneyAmount') addMethod = 'qpay';
     var def = resolve(current);
     document.getElementById('tag').textContent = '#/' + current;
     document.getElementById('btn-next').disabled = !NEXT[current];
@@ -272,6 +312,14 @@
 
   /* ---------- click interception inside the phone ---------- */
   function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+  var pinTaps = 0;
+  function matchText(map, txt){
+    if(!map) return null;
+    if(map[txt]) return map[txt];
+    var best=null, bestLen=0;
+    for(var k in map){ if(k && txt.indexOf(k)>-1 && k.length>bestLen){ best=map[k]; bestLen=k.length; } }
+    return best;
+  }
   host.addEventListener('click', function(e){
     /* if a screen's own onNav just handled it, don't double-navigate */
     if(Date.now() - lastOnNav < 60) return;
@@ -294,8 +342,16 @@
     var dn = el.getAttribute && el.getAttribute('data-nav');
     if(dn){ e.preventDefault(); onNav(dn); return; }
 
-    /* 2) exact text branch for this screen */
-    if(map && map[txt]){ e.preventDefault(); go(map[txt]); return; }
+    /* 2) text branch for this screen (exact, else longest contained key) */
+    var t2 = matchText(map, txt);
+    if(t2){
+      if(t2 === '__qpay'){ addMethod='qpay'; return; }   /* select method only, let screen toggle */
+      if(t2 === '__bank'){ addMethod='bank'; return; }
+      e.preventDefault();
+      if(t2 === '__addContinue') go(addMethod==='bank' ? 'AddMoneyBank' : 'AddMoneyQPay');
+      else go(t2);
+      return;
+    }
 
     /* never hijack close/cancel controls */
     for(var i=0;i<EXCLUDE_TEXT.length;i++){ if(txt.indexOf(EXCLUDE_TEXT[i])>-1) return; }
@@ -311,6 +367,16 @@
     /* 3) back control: small, top-left, icon, little/no text */
     if(topInFrame < 110 && leftInFrame < 90 && w < 64 && h < 64 && hasSvg && txt.length < 3){
       e.preventDefault(); history.back(); return;
+    }
+
+    /* PIN keypad: count digit taps; advance after a full 4-digit PIN */
+    if(PIN_SCREENS[current] && /^[0-9]$/.test(txt)){
+      pinTaps++;
+      if(pinTaps >= 4 && NEXT[current]){
+        var ptok = autoToken, pdest = NEXT[current];
+        setTimeout(function(){ if(ptok === autoToken) go(pdest); }, 480);
+      }
+      return;
     }
 
     /* interactive screens: let the screen run its own modals/pickers/copy logic */
