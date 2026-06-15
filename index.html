@@ -151,10 +151,16 @@
   var ALIAS = {
     home:"Home", trade:"Trading", trading:"Trading", wallet:"Wallet", news:"News",
     loan:"Loan", profile:"ProfileMain", notifications:"NotificationList",
-    primaryMarket:"PrimaryMarket", primaryDetail:"PrimaryDetail",
+    primaryMarket:"PrimaryMarket", primaryDetail:"PrimaryDetail", secondaryDetail:"SecondaryDetail",
     newsDetail:"NewsDetail", eduDetail:"EduDetail", loanEntry:"LoanCheckEntry",
     payoffConfirm:"QPayPayment", wdAmount:"WithdrawAmount", txHistory:"TransactionHistory",
-    ownedDetail:"OwnedDetail", addAmount:"AddMoneyAmount", profileContract:"MyContracts",
+    ownedDetail:"OwnedDetail", addAmount:"AddMoneyAmount",
+    /* notifications */
+    notifDetail:"NotificationDetail", notifDetailCrit:"NotificationDetailCrit",
+    /* profile menu rows */
+    personalInfo:"PersonalInfo", notifSettings:"NotifSettings",
+    profileContract:"MasterContract", myContracts:"MyContracts",
+    certInvest:"CertRequest", certLoan:"CertRequest", terms:"TermsScreen",
     signup:"Onb1", login:"Login"
   };
 
@@ -189,7 +195,7 @@
     WithdrawSuccess:"Wallet", WithdrawInsufficient:"WithdrawAmount",
     News:"NewsDetail", NewsDetail:"EduDetail", EduDetail:"News",
     Loan:"LoanCheckEntry", LoanCheckEntry:"LoanPinConfirm", LoanPinConfirm:"LoanSubmitted",
-    LoanSubmitted:"LoanAccepted", LoanAccepted:"Home", LoanPartial:"Home",
+    LoanSubmitted:"Home", LoanAccepted:"Home", LoanPartial:"Home",
     LoanDeclined:"Home", LoanBlocked:"Home",
     QPayPayment:"PayConfirmed", PayConfirmed:"Loan", PayFailed:"QPayPayment",
     NotificationList:"NotificationDetail", NotificationDetail:"NotificationList",
@@ -208,19 +214,26 @@
     SigningMethod: { "G-Sign ашиглах":"GSignRequest", "G-Sign хэрхэн ашиглах вэ?":"GSignTutorial", "Цахимаар зурах":"ESignCanvas" },
     ESignSuccess:  { "Данс баталгаажуулах":"BankVerify", "G-Sign-ээр баталгаажуулах":"GSignRequest" },
     BankVerify:    { "Баталгаажуулах гүйлгээ авах":"DepositSending" },
-    OwnedDetail:   { "Хоёрдогч зах зээлд зарах":"SellSetup" },
+    OwnedDetail:   { "Хоёрдогч зах зээлд зарах":"SellSetup", "Гэрээ харах":"ContractViewer" },
     /* primary buy flow */
     PrimaryMarket:   { "Авах":"PrimaryDetail" },
     PrimaryDetail:   { "Авах":"PrimaryBuySetup" },
     PrimaryBuySetup: { "Үргэлжлүүлэх":"PrimaryBuyReview" },
-    PrimaryBuyReview:{ "Захиалга баталгаажуулах":"PrimaryBuyPin", "Баталгаажуулах":"PrimaryBuyPin" },
+    PrimaryBuyReview:{ "Худалдан авах":"PrimaryBuyPin" },
+    PrimaryBuyPin:   { "Худалдан авах":"PrimaryBuySuccess" },
     /* secondary buy flow */
     SecondaryDetail:   { "Авах":"SecondaryBuySetup" },
     SecondaryBuySetup: { "Үргэлжлүүлэх":"SecondaryBuyReview" },
-    SecondaryBuyReview:{ "Захиалга баталгаажуулах":"SecondaryBuyPin", "Баталгаажуулах":"SecondaryBuyPin" },
+    SecondaryBuyReview:{ "Худалдан авах":"SecondaryBuyPin" },
+    SecondaryBuyPin:   { "Худалдан авах":"SecondaryBuySuccess" },
     /* sell flow */
     SellSetup:  { "Үргэлжлүүлэх":"SellReview" },
-    SellReview: { "Зарах захиалга өгөх":"SellPin", "Баталгаажуулах":"SellPin" },
+    SellReview: { "Зарах захиалга үүсгэх":"SellPin" },
+    SellPin:    { "Зарах захиалга үүсгэх":"SellSuccess" },
+    /* loan request flow */
+    LoanCheckEntry: { "Үргэлжлүүлэх":"LoanPinConfirm" },
+    LoanPinConfirm: { "Баталгаажуулах":"LoanSubmitted" },
+    LoanSubmitted:  { "Нүүр хуудас руу буцах":"Home", "Дансаа харах":"Wallet" },
     /* wallet top-up: pick method then continue */
     AddMoneyAmount: { "QPay":"__qpay", "Банкны шилжүүлэг":"__bank", "Үргэлжлүүлэх":"__addContinue" },
     AddMoneyQPay:   { "Төлбөр шалгах":"AddMoneySuccess" },
@@ -266,9 +279,11 @@
   var current = null;
   var lastOnNav = 0;
 
+  var notifRead = false;   /* "Бүгдийг унших" toggled on NotificationList */
   function resolve(name){
     if(name==='Wallet' && S.Wallet) return { Comp:S.Wallet, props:{ view:walletView() } };
     if(name==='Home' && S.Home) return { Comp:S.Home, props:homeProps() };
+    if(name==='NotificationList' && S.NotificationList) return { Comp:S.NotificationList, props:{ state: notifRead ? 'allread' : 'default' } };
     if(name && S[name]) return { Comp:S[name], props:{} };
     return null;
   }
@@ -289,8 +304,11 @@
   }
 
   var autoToken = 0;
+  var prevScreen = null;
   function render(){
     current = parseHash();
+    if(current !== prevScreen){ notifRead = false; }   /* reset transient screen state on arrival */
+    prevScreen = current;
     applyPhase(current);
     pinTaps = 0;
     if(current === 'AddMoneyAmount') addMethod = 'qpay';
@@ -320,10 +338,17 @@
     for(var k in map){ if(k && txt.indexOf(k)>-1 && k.length>bestLen){ best=map[k]; bestLen=k.length; } }
     return best;
   }
+  function navTo(t2){
+    if(t2 === '__qpay'){ addMethod='qpay'; return false; }
+    if(t2 === '__bank'){ addMethod='bank'; return false; }
+    if(t2 === '__addContinue'){ go(addMethod==='bank' ? 'AddMoneyBank' : 'AddMoneyQPay'); return true; }
+    go(t2); return true;
+  }
   host.addEventListener('click', function(e){
     /* if a screen's own onNav just handled it, don't double-navigate */
     if(Date.now() - lastOnNav < 60) return;
 
+    var map = TEXT_NAV[current];
     var el = e.target.closest('button,[role="button"],a,[data-nav]');
     if(!el){
       /* clickable div rows (cursor:pointer) */
@@ -333,10 +358,21 @@
         p = p.parentElement;
       }
     }
-    if(!el || !host.contains(el)) return;
+    if(!el || !host.contains(el)){
+      /* text-only fallback: a styled but non-clickable link (e.g. Login "Бүртгүүлэх").
+         Climb a few levels from the click target; navigate only on an EXACT key match. */
+      if(map){
+        var q = e.target, lvl = 0;
+        while(q && q !== host && lvl < 4){
+          var qt = norm(q.textContent);
+          if(map[qt]){ if(navTo(map[qt])) e.preventDefault(); return; }
+          q = q.parentElement; lvl++;
+        }
+      }
+      return;
+    }
 
     var txt = norm(el.textContent);
-    var map = TEXT_NAV[current];
 
     /* 1) data-nav attribute */
     var dn = el.getAttribute && el.getAttribute('data-nav');
@@ -344,14 +380,7 @@
 
     /* 2) text branch for this screen (exact, else longest contained key) */
     var t2 = matchText(map, txt);
-    if(t2){
-      if(t2 === '__qpay'){ addMethod='qpay'; return; }   /* select method only, let screen toggle */
-      if(t2 === '__bank'){ addMethod='bank'; return; }
-      e.preventDefault();
-      if(t2 === '__addContinue') go(addMethod==='bank' ? 'AddMoneyBank' : 'AddMoneyQPay');
-      else go(t2);
-      return;
-    }
+    if(t2){ if(navTo(t2)) e.preventDefault(); return; }
 
     /* never hijack close/cancel controls */
     for(var i=0;i<EXCLUDE_TEXT.length;i++){ if(txt.indexOf(EXCLUDE_TEXT[i])>-1) return; }
@@ -369,8 +398,14 @@
       e.preventDefault(); history.back(); return;
     }
 
-    /* PIN keypad: count digit taps; advance after a full 4-digit PIN */
-    if(PIN_SCREENS[current] && /^[0-9]$/.test(txt)){
+    /* NotificationList "Бүгдийг унших" (top-right icon, no text) -> mark all read */
+    if(current === 'NotificationList' && !txt && hasSvg && leftInFrame > 180 && topInFrame < 120){
+      e.preventDefault(); notifRead = true; render(); return;
+    }
+
+    /* PIN keypad: count digit taps; advance after a full 4-digit PIN.
+       Keys render as "1","2ABC","0" etc., so match a leading digit. */
+    if(PIN_SCREENS[current] && /^[0-9][A-Z]{0,4}$/.test(txt)){
       pinTaps++;
       if(pinTaps >= 4 && NEXT[current]){
         var ptok = autoToken, pdest = NEXT[current];
