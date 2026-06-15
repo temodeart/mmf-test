@@ -167,9 +167,9 @@
     TermsOfUse:"MasterContract", MasterContract:"SigningMethod",
     SigningMethod:"ESignCanvas", ESignCanvas:"ESignSuccess", ESignSuccess:"BankVerify",
     GSignRequest:"GSignWaiting", GSignWaiting:"GSignSuccess", GSignSuccess:"BankVerify", GSignTutorial:"GSignRequest",
-    BankVerify:"IbanLookupSheet", IbanLookupSheet:"IbanLookupResult", IbanLookupResult:"DepositSending",
+    BankVerify:"DepositSending", IbanLookupSheet:"BankVerify", IbanLookupResult:"BankVerify",
     DepositSending:"DepositInfo", DepositInfo:"CodeEntry", CodeEntry:"BankVerified",
-    BankVerified:"KycComplete", KycComplete:"Home",
+    BankVerified:"KycComplete", KycComplete:"HomeEmpty", HomeEmpty:"Trading",
     Splash:"Onb1", Login:"Home",
     ResetEnterPhone:"ResetVerifyCode", ResetVerifyCode:"ResetNewPassword",
     ResetNewPassword:"ResetSuccess", ResetSuccess:"Login",
@@ -205,10 +205,24 @@
     Splash:   { "Бүртгүүлэх":"Onb1", "Нэвтрэх":"Login" },
     Login:    { "Нэвтрэх":"Home", "Бүртгүүлэх":"Onb1", "Нууц үг мартсан?":"ResetEnterPhone" },
     SigningMethod: { "G-Sign":"GSignRequest", "Цахим гарын үсэг":"ESignCanvas" },
+    ESignSuccess:  { "Данс баталгаажуулах":"BankVerify", "G-Sign-ээр баталгаажуулах":"GSignRequest" },
+    BankVerify:    { "Банкны данс баталгаажуулах":"DepositSending" },
     OwnedDetail:   { "Хоёрдогч зах зээлд зарах":"SellSetup" }
   };
 
   var EXCLUDE_TEXT = ["Хаах","Цуцлах","Болих","Үгүй","Буцах","Хойшлуулах"];
+
+  /* Screens with rich internal state (modals, copy-to-field, pickers): let the
+     screen handle its own clicks. Forward nav only via TEXT_NAV submit + chrome. */
+  var INTERACTIVE = { BankVerify:1, IbanLookupSheet:1, IbanLookupResult:1 };
+
+  /* Waiting screens that auto-advance to NEXT after a short delay (ms) */
+  var AUTO = { MonpepCheck:2600, GSignWaiting:2800, DepositSending:2600 };
+
+  /* Virtual routes: render an existing screen component with specific props */
+  var VARIANTS = {
+    HomeEmpty: { screen:"Home", props:{ portfolio:"empty", loanState:"none", label:"10 — Home (шинэ хэрэглэгч)" } }
+  };
 
   /* ---------- routing ---------- */
   var host = document.getElementById('frame-host');
@@ -216,7 +230,12 @@
   var current = null;
   var lastOnNav = 0;
 
-  function valid(name){ return name && S[name]; }
+  function resolve(name){
+    if(VARIANTS[name]) return { Comp:S[VARIANTS[name].screen], props:VARIANTS[name].props };
+    if(name && S[name]) return { Comp:S[name], props:{} };
+    return null;
+  }
+  function valid(name){ return !!resolve(name); }
   function parseHash(){
     var h = (location.hash||'').replace(/^#\/?/,'');
     return valid(h) ? h : 'Splash';
@@ -232,16 +251,23 @@
     if(t) go(t); else if(NEXT[current]) go(NEXT[current]);
   }
 
+  var autoToken = 0;
   function render(){
     current = parseHash();
-    var Comp = S[current];
+    var def = resolve(current);
     document.getElementById('tag').textContent = '#/' + current;
     document.getElementById('btn-next').disabled = !NEXT[current];
     root.render(React.createElement('div',{className:'mmf-screen'},
-      React.createElement(Comp, { onNav: onNav })));
+      React.createElement(def.Comp, Object.assign({ onNav: onNav }, def.props))));
     highlightMenu();
     fitScale();
     window.scrollTo(0,0);
+    /* auto-advance waiting screens */
+    autoToken++;
+    if(AUTO[current] && NEXT[current]){
+      var tok = autoToken, dest = NEXT[current];
+      setTimeout(function(){ if(tok === autoToken) go(dest); }, AUTO[current]);
+    }
   }
 
   /* ---------- click interception inside the phone ---------- */
@@ -286,6 +312,9 @@
     if(topInFrame < 110 && leftInFrame < 90 && w < 64 && h < 64 && hasSvg && txt.length < 3){
       e.preventDefault(); history.back(); return;
     }
+
+    /* interactive screens: let the screen run its own modals/pickers/copy logic */
+    if(INTERACTIVE[current]) return;
 
     /* 4) primary CTA: wide solid button -> flow next */
     if(w >= 390*0.5 && h >= 42 && txt.length > 0){
